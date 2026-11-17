@@ -1,0 +1,51 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // 公开模板默认关闭自动批准。确认信任当前项目后再改为 true。
+  "yolo": false,
+
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 20000
+  },
+
+  // superpowers 插件：提供 brainstorming / writing-plans / TDD 等流程技能。
+  // 不需要可整段删除。
+  "plugin": [
+    "superpowers@git+https://github.com/obra/superpowers.git"
+  ],
+
+  "mcp": {
+    // 语义代码搜索。需先安装 uv：https://docs.astral.sh/uv/
+    "semble": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "semble[mcp]",
+        "semble"
+      ]
+    },
+    // 代码知识图谱。需先安装 codegraph：npm i -g @colbymchenry/codegraph
+    // 项目需先执行 codegraph init 才会建立索引。
+    "codegraph": {
+      "type": "local",
+      "command": [
+        "codegraph",
+        "serve",
+        "--mcp"
+      ],
+      "enabled": true
+    }
+  }
+
+  // provider 需自行配置：本模板不含任何 provider，因为 provider 的 baseURL 与
+  // 模型清单属于个人订阅信息，不适合放进公开仓库。
+  //
+  // 配置方式见 docs/provider-example.md。要点：
+  //   1. 在下面添加 "provider": { ... } 段
+  //   2. 密钥一律用环境变量引用，禁止硬编码，例如：
+  //        "options": { "apiKey": "{env:MY_PROVIDER_API_KEY}" }
+  //   3. 配置完成后用 `opencode models` 或 TUI 里的 /models 验证
+}

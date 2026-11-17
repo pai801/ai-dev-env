@@ -1,0 +1,182 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "terminal": {
+    "flexible": true,
+  },
+  "language_models": {
+    "opencode": {
+      "show_zen_models": false,
+    },
+    // 如需接入 OpenAI 兼容服务（如自建中转、LiteLLM、vLLM 等），
+    // 参考 docs/provider-example.md，按下面结构填写你自己的 endpoint 与模型清单：
+    //
+    // "openai_compatible": {
+    //   "your-provider": {
+    //     "api_url": "https://your-endpoint.example/v1",
+    //     "available_models": [
+    //       {
+    //         "name": "your-model",
+    //         "max_tokens": 128000,
+    //         "max_output_tokens": 8192,
+    //         "capabilities": {
+    //           "tools": true,
+    //           "images": false,
+    //           "parallel_tool_calls": true,
+    //           "chat_completions": true,
+    //         },
+    //       },
+    //     ],
+    //   },
+    // },
+  },
+  "ui_font_weight": 400.0,
+  "ui_font_family": ".ZedMono",
+  "buffer_font_weight": 400.0,
+  "buffer_font_family": "JetBrains Mono NL",
+  "diff_view_style": "split",
+  "project_panel": {
+    "dock": "left",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "agent": {
+    "tool_permissions": {
+      "tools": {
+        "fetch": {
+          "always_allow": [
+            {
+              "pattern": "^https?://zed\\.dev"
+            }
+          ]
+        }
+      }
+    },
+    "default_profile": "ask",
+    // 默认模型请按你已配置的 provider 填写，例如：
+    // "default_model": {
+    //   "effort": "high",
+    //   "provider": "your-provider",
+    //   "model": "your-model",
+    //   "enable_thinking": true,
+    // },
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "git_panel": {
+    "tree_view": true,
+    "dock": "left",
+    "entry_primary_click_action": "file_diff",
+  },
+  "proxy": "",
+  "icon_theme": "JetBrains New UI Icons (Light)",
+  "agent_servers": {
+    "opencode": {
+      "default_config_options": {
+        "effort": "max",
+      },
+      "type": "registry"
+    },
+    "codex-acp": {
+      "default_config_options": {
+        "reasoning_effort": "high",
+        "mode": "agent-full-access"
+      },
+      "type": "registry"
+    },
+    "cursor": {
+      "type": "registry",
+    },
+    "claude-acp": {
+      "type": "registry",
+    },
+  },
+  "base_keymap": "JetBrains",
+  "ui_font_size": 16,
+  "buffer_font_size": 13.0,
+  "theme": {
+    "mode": "light",
+    "light": "JetBrains Islands Light",
+    "dark": "JetBrains Islands Dark",
+  },
+  "languages": {
+    "Proto": {
+      "formatter": {
+        "external": {
+          "command": "clang-format",
+          "arguments": ["--style=file"],
+        },
+      },
+      "format_on_save": "on",
+    },
+  },
+  // basedpyright 降噪：项目用 mypy 做类型检查（见 .pre-commit-config.yaml，
+  // 且带 --ignore-missing-imports），并未按 pyright 调校。这里的禁用项与
+  // mypy 的 --disable-error-code 对齐，避免大量误报。
+  "lsp": {
+    "basedpyright": {
+      "settings": {
+        "basedpyright": {
+          "analysis": {
+            "diagnosticSeverityOverrides": {
+              // 对应 mypy --disable-error-code=attr-defined
+              "reportAttributeAccessIssue": "none",
+              // 对应 mypy --disable-error-code=union-attr
+              "reportOptionalMemberAccess": "none",
+              "reportOptionalSubscript": "none",
+              "reportOptionalIterable": "none",
+              "reportOptionalCall": "none",
+              // 对应 mypy --disable-error-code=assignment
+              "reportAssignmentType": "none",
+              // 对应 mypy --disable-error-code=import-untyped
+              "reportMissingModuleSource": "none",
+              // 项目大量使用 __init__.py 重导出，非私有导入的告警不适用
+              "reportPrivateImportUsage": "none",
+              // pydantic 运行时强制转换（str -> SecretStr 等）无法用类型系统
+              // 表达，pyright 误报；pydantic issue #9557 已标记 not planned
+              "reportArgumentType": "none",
+              // basedpyright 特有、mypy 不会报的规则
+              "reportImplicitOverride": "none",
+              "reportUnannotatedClassAttribute": "none",
+              "reportExplicitAny": "none",
+              "reportAny": "none",
+            },
+          },
+        },
+      },
+    },
+  },
+  "experimental.theme_overrides": {
+    "ignored": "#b0b0b0", // 请将 "#808080" 替换为你想要的颜色值
+  },
+  "context_servers": {
+    "codegraph": {
+      "enabled": true,
+      "remote": false,
+      "command": "codegraph",
+      "args": [
+        "serve",
+        "--mcp",
+        "--path",
+        "${workspaceFolder}"
+      ]
+    },
+    "semble": {
+      "command": "uvx",
+      "args": ["--from", "semble[mcp]", "semble"],
+    },
+  },
+  //"restore_on_startup": "launchpad", //launchpad
+  //"when_closing_with_no_tabs": "keep_window_open",
+}
