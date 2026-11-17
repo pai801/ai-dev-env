@@ -156,7 +156,7 @@ semble find-related src/auth.py 42 ./my-project
 | 依赖 | 位置 | 缺失时的表现 |
 |---|---|---|
 | `@coder` / `@reviewer` / `@docer` / `@utility` / `@architecter` / `@finaler` / `@code-simplifier` | `~/.config/opencode/agents/` | 派发失败，需先安装（本仓库 `install.sh` 会安装） |
-| `my-propose` / `my-contracts` / `my-apply` / `my-archive` | `~/.config/opencode/skills/` | skill 无法加载（同上） |
+| `my-propose` / `my-contracts` / `my-apply` / `my-archive` | `~/.agents/skills/` | skill 无法加载（同上） |
 | `codegraph` / `semble` | 本机 PATH | 完整工具链必需（`install.sh` 会自动安装）。缺失时基础工作流仍可运行，但第 9 节的工具路由不可用，需走 9.7 的降级路径 |
 | `openspec` CLI | 本机 PATH | `my-propose` / `my-archive` 无法运行；且每个项目需先 `openspec init` 才能使用 `openspec-*` skill |
 

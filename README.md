@@ -66,7 +66,7 @@ cd ~/work/github/ai-dev-env
 | `config/opencode/AGENTS.md` | `~/.config/opencode/AGENTS.md` |
 | `config/opencode/AGENTS.md` | `~/.config/zed/AGENTS.md` |
 | `config/opencode/agents/*.md` | `~/.config/opencode/agents/` |
-| `config/opencode/skills/*/` | `~/.config/opencode/skills/` |
+| `config/opencode/skills/*/` | `~/.agents/skills/` |
 | `config/zed/settings.json` | `~/.config/zed/settings.json` |
 | `bin/init-dev.sh` | `~/.local/bin/init-dev` |
 
@@ -183,6 +183,11 @@ description: 说明这个 skill 解决什么问题、什么情况下加载
 `description` 是 skill 被自动检索匹配的唯一依据，写清楚触发场景比写长正文更重要。
 
 改完重新执行 `./install.sh`（软链模式下新文件需要重新链接一次），或在会话内 `/reload`。
+
+> **路径说明**：skill 统一安装到 `~/.agents/skills/`。如果你之前用旧版脚本装到了
+> `~/.config/opencode/skills/`，那批旧软链不会被自动清理，可手动删除：
+> `rm -f ~/.config/opencode/skills/{my-propose,my-contracts,my-apply,my-archive}`
+> （只删软链，不要 `rm -rf` 整个目录）
 
 ## License
 

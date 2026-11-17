@@ -57,7 +57,7 @@ usage() {
   config/opencode/AGENTS.md       -> ~/.config/opencode/AGENTS.md
   config/opencode/AGENTS.md       -> ~/.config/zed/AGENTS.md
   config/opencode/agents/*.md     -> ~/.config/opencode/agents/
-  config/opencode/skills/*/       -> ~/.config/opencode/skills/
+  config/opencode/skills/*/       -> ~/.agents/skills/
   config/zed/settings.json        -> ~/.config/zed/settings.json
   bin/init-dev.sh                 -> ~/.local/bin/init-dev
 
@@ -295,7 +295,7 @@ plan_entries() {
   for d in "$REPO_ROOT"/config/opencode/skills/*/; do
     [ -d "$d" ] || continue
     d="${d%/}"
-    printf '%s|%s\n' "$d" "$HOME/.config/opencode/skills/$(basename "$d")"
+    printf '%s|%s\n' "$d" "$HOME/.agents/skills/$(basename "$d")"
   done
 
   printf '%s|%s\n' "$REPO_ROOT/config/zed/settings.json" "$HOME/.config/zed/settings.json"
